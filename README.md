@@ -15,12 +15,12 @@
 ## Timeline
 - [ ] design the database schema
 - [ ] write the script to run on application start to populate the database
-  [ ]   - avoid populating if already populated
+    - avoid populating if already populated
 - [ ] write the web application(front-back) to show all the movies and the add the ability to be rated
 - [ ] add user authentication
 - [ ] move the ability to rate movies only to authenticated users
 - [ ] add a method to `fetch recommended movies` for a user.
-  [ ]   - fetch static set of movies for now
+    - fetch static set of movies for now
 - [ ] write the script to populate databse with dummy users and their ratings
 - [ ] decide on which approach to follow to build the rc
 - [ ] write the rc
