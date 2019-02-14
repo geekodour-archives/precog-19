@@ -14,7 +14,7 @@
 
 ## Timeline
 - [ ] design the database schema
-- [ ] write the script to run on application start to populate the database
+- [ ] write the script to run on application start to populate the database with movies
     - avoid populating if already populated
 - [ ] write the web application(front-back) to show all the movies and the add the ability to be rated
 - [ ] add user authentication
