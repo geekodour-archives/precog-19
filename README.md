@@ -9,7 +9,7 @@
 
 ## Choice of tools
 - Database is explicitly stated to be MongoDB
-- Language for building the Web backend and RC due to familiarity
+- Language for building the Web backend and RE due to familiarity
     - Web framework: Flask, due to simplicity
 
 ## Timeline
@@ -22,6 +22,6 @@
 - [ ] add a method to `fetch recommended movies` for a user.
     - fetch static set of movies for now
 - [ ] write the script to populate database with dummy users and their ratings
-- [ ] decide on which approach to follow to build the rc
-- [ ] write the rc
-- [ ] replace `fetch recommended movies` with the rc
+- [ ] decide on which approach to follow to build the re
+- [ ] write the re
+- [ ] replace `fetch recommended movies` with the re
