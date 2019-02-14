@@ -21,3 +21,23 @@
 - [ ] decide on which approach to follow to build the re
 - [ ] write the re
 - [ ] replace `fetch recommended movies` with the re
+
+### Getting the data
+- I used the [ml-latest-small](https://grouplens.org/datasets/movielens/latest/) dataset to get the links with genere.
+- 20 movies from 10 generes
+    - Extract 10 random generes
+    - For earch of the 10 generes
+    - extract id of 20 movies under that genere
+    - {
+        "comedy": ['223213123','2323'],
+        "comedy": ['223213123','2323'],
+        "comedy": ['223213123','2323'],
+        "comedy": ['223213123','2323'],
+      }
+    - start the scrape
+
+
+
+# Versions
+- python: 3.7.0
+- pip:
