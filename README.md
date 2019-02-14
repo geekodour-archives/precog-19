@@ -7,10 +7,6 @@
 - Precog19 internship interview project
 - [Link to problem statement](https://docs.google.com/document/d/1DQkEL1ua52MXwhRnWqJ5rtJtHWOVOHqd_qkgeYMJtPo/edit)
 
-## Choice of tools
-- Database is explicitly stated to be MongoDB
-- Language for building the Web backend and RE due to familiarity
-    - Web framework: Flask, due to simplicity
 
 ## Timeline
 - [ ] design the database schema
