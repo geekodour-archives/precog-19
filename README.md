@@ -8,8 +8,8 @@
 - [Link to problem statement](https://docs.google.com/document/d/1DQkEL1ua52MXwhRnWqJ5rtJtHWOVOHqd_qkgeYMJtPo/edit)
 
 ## Choice of tools
-- Database is explitly stated to be MongoDB
-- Language for building the Web backend and RC due to familirity
+- Database is explicitly stated to be MongoDB
+- Language for building the Web backend and RC due to familiarity
     - Web framework: Flask, due to simplicity
 
 ## Timeline
@@ -21,7 +21,7 @@
 - [ ] move the ability to rate movies only to authenticated users
 - [ ] add a method to `fetch recommended movies` for a user.
     - fetch static set of movies for now
-- [ ] write the script to populate databse with dummy users and their ratings
+- [ ] write the script to populate database with dummy users and their ratings
 - [ ] decide on which approach to follow to build the rc
 - [ ] write the rc
 - [ ] replace `fetch recommended movies` with the rc
