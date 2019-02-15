@@ -49,7 +49,7 @@ class User(db.Document, UserMixin):
         return pwd_context.verify(password, self.password_hash)
 
     #def generate_auth_token(self, expiration=600):
-    def generate_auth_token(self, expiration=60000):
+    def generate_auth_token(self, expiration=600):
         s = Serializer(application.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'username': self.username})
 
@@ -97,11 +97,23 @@ def get_user(username):
         abort(400)
     return jsonify({'username': user.username})
 
-@application.route('/api/token')
-@auth.login_required
-def get_auth_token():
-    token = g.user.generate_auth_token(600)
-    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+#@application.route('/api/token')
+#@auth.login_required
+#def get_auth_token():
+#    token = g.user.generate_auth_token(600)
+#    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+
+@application.route('/api/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    if verify_password(username, password):
+        user = User(username=username)
+        token = user.generate_auth_token(600)
+        return jsonify({'token': token.decode('ascii'), 'duration': 600})
+    else:
+        abort(403)
 
 @application.route('/api/ratemovie/<string:movieid>', methods=['POST'])
 @auth.login_required
