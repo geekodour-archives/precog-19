@@ -15,8 +15,8 @@ tempdb['movies'].drop()
 tempmovies = tempdb['movies']
 
 # maindb
-moviedb = client['moviedb']
-moviedb['movies'].drop()
+moviedb = client['neatflex']
+#moviedb['movies'].drop()
 finalmovies = moviedb['movies']
 
 # csv inits
@@ -45,6 +45,7 @@ ids = set()
 
 for g in genres:
     links = tempmovies.find({'genre': [g]},{'link': 1}).limit(20)
+    # you can use contains 'g' here too
     for link in [m['link'] for m in links]:
         if len(ids) < 200:
             ids.add(link)
