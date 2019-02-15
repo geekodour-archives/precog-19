@@ -17,7 +17,7 @@ tempmovies = tempdb['movies']
 # maindb
 moviedb = client['neatflex']
 #moviedb['movies'].drop()
-finalmovies = moviedb['movies']
+finalmovies = moviedb['movie']
 
 # csv inits
 linkfile = open('data/links.csv')
@@ -53,6 +53,7 @@ for g in genres:
             break
 
 for l in list(ids):
+    print('downloading image for %s\n' % ( l ))
     r = requests.get(URL+l)
     data = r.text
     soup = BeautifulSoup(data, 'html.parser')
@@ -60,7 +61,7 @@ for l in list(ids):
     movie = tempmovies.find_one({'link': l})
     finalmovies.insert_one(
     {
-      '_id': l,
+      'imdbid': l,
       'year': movie['year'],
       'title': movie['name'],
       'genre': movie['genre'],

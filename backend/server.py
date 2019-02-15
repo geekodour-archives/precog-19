@@ -1,5 +1,6 @@
 from time import sleep
 from flask import Flask, abort, request, jsonify, g, url_for
+from bson.objectid import ObjectId
 from flask_mongoengine import MongoEngine
 from flask_user import login_required, UserManager, UserMixin
 from flask_httpauth import HTTPBasicAuth
@@ -28,19 +29,17 @@ auth = HTTPBasicAuth()
 
 
 class Movie(db.Document):
-    _id = db.StringField()
     year = db.StringField()
+    imdbid = db.StringField()
     title = db.StringField()
     genre = db.ListField(db.StringField())
     image = db.StringField()
+
 
 class User(db.Document, UserMixin):
     # User authentication information
     username = db.StringField(default='')
     password_hash = db.StringField()
-    rated = db.ListField()
-    #rated = db.ListField({''})
-    #TODO this ListField should contain the foreign key to the Movie document
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
@@ -48,7 +47,6 @@ class User(db.Document, UserMixin):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
 
-    #def generate_auth_token(self, expiration=600):
     def generate_auth_token(self, expiration=600):
         s = Serializer(application.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'username': self.username})
@@ -64,6 +62,11 @@ class User(db.Document, UserMixin):
             return None
         user = User.objects.get(username=data['username'])
         return user
+
+class Rate(db.Document):
+    movie = db.ReferenceField(Movie)
+    user = db.ReferenceField(User)
+    rating = db.IntField(min_val=1,max_val=5)
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -109,8 +112,9 @@ def login():
     password = request.json.get('password')
 
     if verify_password(username, password):
-        user = User(username=username)
-        token = user.generate_auth_token(600)
+        #user = User(username=username)
+        #token = user.generate_auth_token(600)
+        token = g.user.generate_auth_token(600)
         return jsonify({'token': token.decode('ascii'), 'duration': 600})
     else:
         abort(403)
@@ -118,16 +122,12 @@ def login():
 @application.route('/api/ratemovie/<string:movieid>', methods=['POST'])
 @auth.login_required
 def rate_movie(movieid):
-    movie = Movie.objects.get(_id=movieid) # currently acts as the exists verifier
+    movie = Movie.objects.get(imdbid=movieid)
     user = User.objects.get(username=g.user.username)
-    rating = request.json.get('rating')
-    #movie rating count increase
-    #TODO : FIX FIX FIX
-    user.rated.append(
-        (movieid, rating)
-    )
-    user.save()
-    return jsonify({'data': user.rated})
+    rating = int(request.json.get('rating'))
+    rate = Rate(movie=movie,user=user,rating=rating)
+    rate.save()
+    return jsonify({'data': rate})
 
 @application.route('/api/resource')
 @auth.login_required
@@ -137,6 +137,12 @@ def get_resource():
 @application.route("/")
 def getmovies():
     return "<h1 style='color:blue'>Hello There!</h1>"
+
+
+# my recommeddations
+# all movies
+# list movies by 10s
+
 
 if __name__ == "__main__":
     application.run(host='localhost')
