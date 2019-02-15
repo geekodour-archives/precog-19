@@ -129,20 +129,18 @@ def rate_movie(movieid):
     rate.save()
     return jsonify({'data': rate})
 
-@application.route('/api/resource')
+@application.route('/api/recommend/', methods=['GET'])
 @auth.login_required
-def get_resource():
-    return jsonify({'data': 'Hello, %s!' % g.user.username})
+def get_reco():
+    # RE goes here
+    user = User.objects.get(username=g.user.username)
+    return jsonify({'data': 'nothing'})
 
-@application.route("/")
-def getmovies():
-    return "<h1 style='color:blue'>Hello There!</h1>"
-
-
-# my recommeddations
-# all movies
-# list movies by 10s
-
+@application.route('/api/movies/<int:page>', methods=['GET'])
+def get_movies(page):
+    offset = 10
+    movies = Movie.objects[offset*page:(offset*page+offset)]
+    return jsonify({'data': movies})
 
 if __name__ == "__main__":
     application.run(host='localhost')
