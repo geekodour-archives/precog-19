@@ -2,7 +2,7 @@
 > I will be following a development methodology called [Readme driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html). I'll try to reason for everything I do in this project along the way.
 
 
-## Neatflex
+## Neatflex is good
 - A neat way to flex what movies you like.
 - Precog19 internship interview project
 - [Link to problem statement](https://docs.google.com/document/d/1DQkEL1ua52MXwhRnWqJ5rtJtHWOVOHqd_qkgeYMJtPo/edit)
